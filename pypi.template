@@ -1,0 +1,16 @@
+server {
+	server_name ${NGINX_HOST};
+	listen 80 default_server;
+
+	location /simple {
+		proxy_pass https://pypi.org;
+		proxy_set_header Host pypi.org;
+		proxy_set_header Accept-Encoding "identity";
+		sub_filter_once off;
+		sub_filter ://files.pythonhosted.org/ ://${NGINX_HOST}/;
+	}
+	location /packages {
+		proxy_pass https://files.pythonhosted.org;
+		proxy_set_header Host files.pythonhosted.org;
+	}
+}
