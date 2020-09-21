@@ -1,2 +1,5 @@
 FROM nginx
-COPY pypi.template /etc/nginx/conf.d/pypi.template
+
+COPY pypi.conf /etc/nginx/conf.d/pypi.conf
+
+CMD ["nginx", "-g", "daemon off;"]
